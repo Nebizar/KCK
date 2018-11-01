@@ -50,7 +50,9 @@ def plot_color_gradients(gradients, names):
 def hsv2rgb(h, s, v):
     if s == 0.0: return (v, v, v)
     i = int(h*6.) # XXX assume int() truncates!
-    f = (h*6.)-i; p,q,t = v*(1.-s), v*(1.-s*f), v*(1.-s*(1.-f)); i%=6
+    f = (h*6.)-i
+    p,q,t = v*(1.-s), v*(1.-s*f), v*(1.-s*(1.-f))
+    i%=6
     if i == 0: return (v, t, p)
     if i == 1: return (q, v, p)
     if i == 2: return (p, v, t)
@@ -99,22 +101,18 @@ def gradient_rgb_wb_custom(v):
     
     
 def gradient_hsv_bw(v):
-    #TODO
-    return hsv2rgb(0, 0, 0)
+    return hsv2rgb(0, 0, v)
 
 
 def gradient_hsv_gbr(v):
-    #TODO
-    return hsv2rgb(0, 0, 0)
-
+    return hsv2rgb(1/3 + v*(2/3), 1, 1)
+    
 def gradient_hsv_unknown(v):
-    #TODO
-    return hsv2rgb(0, 0, 0)
+    return hsv2rgb(1/3-v*1/3,0.5,1)
 
 
 def gradient_hsv_custom(v):
-    #TODO
-    return hsv2rgb(0, 0, 0)
+    return hsv2rgb(1-np.sin(v), np.cos(v), 0.7+v/5)
 
 
 if __name__ == '__main__':
